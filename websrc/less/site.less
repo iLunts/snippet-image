@@ -33,6 +33,7 @@ body {
     // padding: 100px;
     display: flex;
     align-items: center;
+    justify-content: center;
     font: 1.4rem "Open Sans";
     color: @colorPrimary;
     background: linear-gradient(135deg, #475c66, #968e84);
@@ -185,12 +186,17 @@ a {
         float: left;
         width: 50%;
         text-align: center;
+        transition: all .5s;
 
         &:before{
             content: '';
             position: absolute;
             top: 0;
             left: 50%;
+        }
+
+        &:hover{
+            opacity: .8;
         }
 
         &-img{
