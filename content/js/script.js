@@ -1,7 +1,15 @@
 (function () {
 
-    console.log('Start!');
-    
+    // console.log('Start!');
+
+    var list = [
+        {urlBefore: 'https://picsum.photos/300/300/?random', fileNameBefore: '1-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '1-2.jpg'},
+        {urlBefore: 'https://picsum.photos/300/300/?random', fileNameBefore: '2-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '2-2.jpg'},
+        {urlBefore: 'https://picsum.photos/300/300/?random', fileNameBefore: '3-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '3-2.jpg'},
+        {urlBefore: 'https://picsum.photos/300/300/?random', fileNameBefore: '4-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '4-2.jpg'}
+    ];
+
+    // Start template
     var html = '\
         <div class="ita-panel">\
             <div class="ita-panel__controls">\
@@ -16,35 +24,37 @@
             </div>\
             <div class="ita-panel__body">\
                 <ul class="ita-panel__list">\
-                    <li class="ita-panel__item">\
-                        <a href="#" class="ita-panel__before">\
-                            <img class="ita-panel__before-img" src="content/img/1/1-1.jpg" alt="">\
-                            <p class="ita-panel__before-title">File name before</p>\
-                        </a>\
-                        <a href="#" class="ita-panel__after">\
-                            <img class="ita-panel__after-img" src="content/img/1/1-2.jpg" alt="">\
-                            <p class="ita-panel__after-title">File name after</p>\
-                        </a>\
-                    </li>\
-                    <li class="ita-panel__item">\
-                        <a href="#" class="ita-panel__before">\
-                            <img class="ita-panel__before-img" src="content/img/3/3-1.jpg" alt="">\
-                            <p class="ita-panel__before-title">File name before</p>\
-                        </a>\
-                        <a href="#" class="ita-panel__after">\
-                            <img class="ita-panel__after-img" src="content/img/3/3-2.jpg" alt="">\
-                            <p class="ita-panel__after-title">File name after</p>\
-                        </a>\
-                    </li>\
-                </ul>\
-            </div>\
-        </div>\
+    ';
+
+    // List item for template
+    list.forEach(function (item, i, list) {
+        
+        html += '\
+            <li class="ita-panel__item" >\
+                <a href="#" class="ita-panel__before">\
+                <img class="ita-panel__before-img" src="' + item.urlBefore + '" alt="">\
+                <p class="ita-panel__before-title">' + item.fileNameBefore + '</p>\
+            </a>\
+            <a href="#" class="ita-panel__after">\
+                <img class="ita-panel__after-img" src="' + item.urlAfter + '" alt="">\
+                <p class="ita-panel__after-title">' + item.fileNameAfter + '</p>\
+            </a>\
+        </li>\
+        ';
+
+    });
+
+    // End template
+    html+= '\
+                </ul >\
+            </div >\
+        </div >\
     ';
 
     document.getElementById("ita-1234").innerHTML = html;
 
 
-});
+})(this, this.document);
 
 
 
