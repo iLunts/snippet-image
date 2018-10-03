@@ -14,7 +14,7 @@
         <div class="ita-panel">\
             <div class="ita-panel__controls">\
                 <div class="ita-panel__controls-title">\
-                    <a href="#" class="link">Gallery (2)</a>\
+                    <a href="#" class="link">Gallery (' + list.length + ')</a>\
                 </div>\
                 <div class="ita-panel__controls-btns">\
                     <a href="#" class="link">\
