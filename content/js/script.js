@@ -3,10 +3,10 @@
     // console.log('Start!');
 
     var list = [
-        {urlBefore: 'https://picsum.photos/300/300/?random', fileNameBefore: '1-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '1-2.jpg'},
-        {urlBefore: 'https://picsum.photos/300/300/?random', fileNameBefore: '2-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '2-2.jpg'},
-        {urlBefore: 'https://picsum.photos/300/300/?random', fileNameBefore: '3-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '3-2.jpg'},
-        {urlBefore: 'https://picsum.photos/300/300/?random', fileNameBefore: '4-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '4-2.jpg'}
+        {urlBefore: 'https://picsum.photos/300/?random', fileNameBefore: '1-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '1-2.jpg'},
+        {urlBefore: 'https://picsum.photos/300/?random', fileNameBefore: '2-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '2-2.jpg'},
+        {urlBefore: 'https://picsum.photos/300/?random', fileNameBefore: '3-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '3-2.jpg'},
+        {urlBefore: 'https://picsum.photos/300/?random', fileNameBefore: '4-1.jpg', urlAfter: 'https://picsum.photos/200/300/?random', fileNameAfter: '4-2.jpg'}
     ];
 
     // Start template
