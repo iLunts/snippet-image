@@ -1,5 +1,6 @@
-// (function () {
+function itaFunc(gallery_data){
 
+    // Array list
     let list = [
         {
             id: 1,
@@ -7,7 +8,7 @@
             urlBefore: 'https://picsum.photos/300/?random',
             fileNameAfter: "Arjun",
             urlAfter: 'https://picsum.photos/300/?random',
-            
+
         },
         {
             id: 2,
@@ -89,8 +90,18 @@
     ];
 
     /* * * * * * * * * * * * * * * * *
+    * Gallery
+    * * * * * * * * * * * * * * * * */
+    var Gallery = {
+
+        // Initialization gallery
+        Init: function(data){
+
+        }
+    }
+
+    /* * * * * * * * * * * * * * * * *
     * Pagination
-    * javascript page navigation
     * * * * * * * * * * * * * * * * */
 
     var Pagination = {
@@ -242,7 +253,7 @@
 
     var init = function () {
         Pagination.Init(document.getElementById('ita-pagination'), {
-            size: 3, // pages size
+            size: 5, // pages size
             page: 1, // selected page
             step: 3 // pages before and after current
         });
@@ -255,14 +266,14 @@
     * * * * * * * * * * * * * * * * */
 
     function Paginator(items, page, per_page) {
- 
+
         var page = page || Pagination.page || 1,
-        per_page = per_page || Pagination.size || 5,
-        offset = (page - 1) * per_page,
-        
-        paginatedItems = items.slice(offset).slice(0, per_page),
-        total_pages = Math.ceil(items.length / per_page);
-        
+            per_page = per_page || gallery_data.gallery_items_per_page || Pagination.size || 5,
+            offset = (page - 1) * per_page,
+
+            paginatedItems = items.slice(offset).slice(0, per_page),
+            total_pages = Math.ceil(items.length / per_page);
+
         return {
             page: page,
             per_page: per_page,
@@ -275,7 +286,7 @@
     }
 
     // Clear list elements
-    function DeleteElements(){
+    function DeleteElements() {
         while (listEl.firstChild) {
             listEl.removeChild(listEl.firstChild);
         }
@@ -287,20 +298,20 @@
     * * * * * * * * * * * * * * * * */
 
     var html = '\
-    <div class="ita-panel">\
-        <div class="ita-panel__controls">\
-            <div class="ita-panel__controls-title">\
-                <a href="#" class="link">Gallery (' + list.length + ')</a>\
+        <div class="ita-panel">\
+            <div class="ita-panel__controls">\
+                <div class="ita-panel__controls-title">\
+                    <a href="#" class="link">Gallery (' + list.length + ')</a>\
+                </div>\
+                <div class="ita-panel__controls-btns">\
+                    <a href="#" class="link">\
+                        <img class="link__icon" src="content/svg/update.svg" alt="" width="14">\
+                    </a>\
+                </div>\
             </div>\
-            <div class="ita-panel__controls-btns">\
-                <a href="#" class="link">\
-                    <img class="link__icon" src="content/svg/update.svg" alt="" width="14">\
-                </a>\
-            </div>\
-        </div>\
-        <div class="ita-panel__body">\
-            <ul id="js-list" class="ita-panel__list">\
-    ';
+            <div class="ita-panel__body">\
+                <ul id="js-list" class="ita-panel__list">\
+        ';
 
     // ****************************************
     // List item for template
@@ -324,52 +335,52 @@
     // Pagination
     // ****************************************
     html += '\
-            </ul >\
-        </div >\
-        <div class="ita-panel__footer">\
-            <ul id="ita-pagination" class="ita-pagination">\
-            </ul>\
-        </div>\
-    ';
+        </ul >\
+            </div >\
+            <div class="ita-panel__footer">\
+                <ul id="ita-pagination" class="ita-pagination">\
+                </ul>\
+            </div>\
+        ';
 
     // ****************************************
     // End template
     // ****************************************
     html += '\
-        </div >\
-    ';
+            </div >\
+        ';
 
     // ****************************************
     // Insert HTML code
     // ****************************************
     var elem_panel = document.getElementById("ita-1234");
     elem_panel.innerHTML = html;
-    
+
     var elem_list = document.getElementById('js-list');
-    
+
     // Create new list
     function CreateList() {
         var new_list = '';
-        
+
         Paginator(list, Pagination.page, Pagination.size).data.forEach(function (item) {
             new_list += '\
-            <li class="ita-panel__item" >\
-                <a href="#" class="ita-panel__before">\
-                    <img class="ita-panel__before-img" src="' + item.urlBefore + '" alt="">\
-                    <p class="ita-panel__before-title">' + item.fileNameBefore + '</p>\
-                </a>\
-                <a href="#" class="ita-panel__after">\
-                    <img class="ita-panel__after-img" src="' + item.urlAfter + '" alt="">\
-                    <p class="ita-panel__after-title">' + item.fileNameAfter + '</p>\
-                </a>\
-            </li>\
-        ';
+                <li class="ita-panel__item" >\
+                    <a href="#" class="ita-panel__elem ita-panel__before">\
+                        <img class="ita-panel__elem-img ita-panel__before-img" src="' + item.urlBefore + '" alt="">\
+                        <p class="ita-panel__before-title">' + item.fileNameBefore + '</p>\
+                    </a>\
+                    <a href="#" class="ita-panel__elem ita-panel__after">\
+                        <img class="ita-panel__elem-img ita-panel__after-img" src="' + item.urlAfter + '" alt="">\
+                        <p class="ita-panel__after-title">' + item.fileNameAfter + '</p>\
+                    </a>\
+                </li>\
+            ';
         });
 
         elem_list.innerHTML = new_list;
         elem_list.scrollTop;
     }
-    
+
     // Delete list
     function Delete() {
         while (elem_list.firstChild) {
@@ -378,4 +389,17 @@
     }
 
 
-// })(this, this.document);
+    // Styler gallery
+    function StylerGallery(){
+        console.log(gallery_data);
+
+        var elem_panel = document.getElementsByClassName('ita-panel');
+        
+        // Panel width
+        elem_panel[0].style.width = gallery_data.gallery_width + 'px';
+        elem_panel[0].style.height = gallery_data.gallery_height + 'px';
+        document.getElementsByClassName('ita-panel__body')[0].style.height = (gallery_data.gallery_height - 122) + 'px';
+    }
+
+    StylerGallery();    
+}
