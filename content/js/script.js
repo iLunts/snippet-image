@@ -1,17 +1,17 @@
 function ItaFunc(gallery_data){
 
-    // addCSS('https://ilunts.github.io/snippet-image/content/css/ita.min.css');
+    addCSS('https://ilunts.github.io/snippet-image/content/css/ita.min.css');
 
     // Include CSS file
-    // function addCSS(filename) {
-    //     var head = document.getElementsByTagName('head')[0];
+    function addCSS(filename) {
+        var head = document.getElementsByTagName('head')[0];
 
-    //     var style = document.createElement('link');
-    //     style.href = filename;
-    //     style.type = 'text/css';
-    //     style.rel = 'stylesheet';
-    //     head.append(style);
-    // }
+        var style = document.createElement('link');
+        style.href = filename;
+        style.type = 'text/css';
+        style.rel = 'stylesheet';
+        head.append(style);
+    }
     
     // Init default value for gallery object
     // this.gallery_data = gallery_data || {

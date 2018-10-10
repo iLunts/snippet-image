@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Snippet image</title>
+
+    <link rel="stylesheet" href="content/css/ita.min.css">
 </head>
 <body>
     
-    <!-- ITA gallery snippet -->
     <script src="content/js/script.js" async></script>
     <div id="ita"></div>
     <script type="text/javascript">
-        ItaFunc({
+        window.onload = ItaFunc({
             gallery_width:          300, // px +++
             gallery_height:         450, // px +++
             gallery_items_per_page: 5, // int +++
@@ -21,7 +22,6 @@
             gallery_dark_mode:      false, // boolean
         });
     </script>
-    <!-- end ITA gallery snippet -->
     
 
 </body>
