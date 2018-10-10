@@ -1,5 +1,18 @@
 function ItaFunc(gallery_data){
 
+    addCSS('https://ilunts.github.io/snippet-image/content/css/ita.min.css');
+
+    // Include CSS file
+    function addCSS(filename) {
+        var head = document.getElementsByTagName('head')[0];
+
+        var style = document.createElement('link');
+        style.href = filename;
+        style.type = 'text/css';
+        style.rel = 'stylesheet';
+        head.append(style);
+    }
+    
     this.gallery_data = gallery_data;
 
     // Array list
@@ -318,11 +331,6 @@ function ItaFunc(gallery_data){
             <div class="ita-panel__controls">\
                 <div class="ita-panel__controls-title">\
                     <a href="#" class="link">Gallery (' + list.length + ')</a>\
-                </div>\
-                <div class="ita-panel__controls-btns">\
-                    <a href="#" class="link">\
-                        <img class="link__icon" src="content/svg/update.svg" alt="" width="14">\
-                    </a>\
                 </div>\
             </div>\
             <div class="ita-panel__body">\
