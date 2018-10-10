@@ -14,17 +14,14 @@ function ItaFunc(gallery_data){
     }
     
     // Init default value for gallery object
-    // this.gallery_data = gallery_data || {
-    //     gallery_width: 300,
-    //     gallery_height: 300,
-    //     gallery_items_per_page: 3,
-    //     gallery_show_item_name: false,
-    //     gallery_title: 'Gallery',
-    //     gallery_dark_mode: false,
-    // };
-
-    // console.log(this.gallery_data);
-    
+    var gallery_data;
+    this.gallery_data = {
+        gallery_width: gallery_data.gallery_width || 300,
+        gallery_height: gallery_data.gallery_height || 300,
+        gallery_items_per_page: gallery_data.gallery_items_per_page || 3,
+        gallery_show_item_name: gallery_data.gallery_show_item_name || true,
+        gallery_title: gallery_data.gallery_title || 'Gallery',
+    };
 
     // Array list
     let list = [
@@ -148,7 +145,7 @@ function ItaFunc(gallery_data){
         // converting initialize data
         Extend: function (data) {
             data = data || {};
-            Pagination.size = data.size || gallery_data.gallery_items_per_page || 4;
+            Pagination.size = data.size || 4;
             Pagination.page = data.page || 1;
             Pagination.step = data.step || 3;
         },
@@ -181,6 +178,7 @@ function ItaFunc(gallery_data){
 
             Delete();
             CreateList();
+            ScrollTopList();
         },
 
         // previous page
@@ -193,7 +191,7 @@ function ItaFunc(gallery_data){
 
             Delete();
             CreateList();
-
+            ScrollTopList();
         },
 
         // next page
@@ -207,7 +205,7 @@ function ItaFunc(gallery_data){
 
             Delete();
             CreateList();
-
+            ScrollTopList();
         },
 
 
@@ -341,10 +339,10 @@ function ItaFunc(gallery_data){
         <div class="ita-panel">\
             <div class="ita-panel__controls">\
                 <div class="ita-panel__controls-title">\
-                    <a href="#" class="link">Gallery (' + list.length + ')</a>\
+                    <a href="#" class="link">' + this.gallery_data.gallery_title + ' (' + list.length + ')</a>\
                 </div>\
             </div>\
-            <div class="ita-panel__body">\
+            <div id="js-body" class="ita-panel__body">\
                 <ul id="js-list" class="ita-panel__list">\
         ';
 
@@ -352,25 +350,41 @@ function ItaFunc(gallery_data){
     // List item for template
     // ****************************************
     Paginator(list, Pagination.page, Pagination.size).data.forEach(function (item, i, list) {
-        html += '\
-            <li class="ita-panel__item" >\
-                <a href="#" class="ita-panel__before">\
-                <img class="ita-panel__before-img" src="' + item.urlBefore + '" alt="">\
-                <p class="ita-panel__before-title">' + item.fileNameBefore + '</p>\
-            </a>\
-            <a href="#" class="ita-panel__after">\
-                <img class="ita-panel__after-img" src="' + item.urlAfter + '" alt="">\
-                <p class="ita-panel__after-title">' + item.fileNameAfter + '</p>\
-            </a>\
-        </li>\
-        ';
+
+        if(this.gallery_data.gallery_show_item_name){
+            html += '\
+                <li class="ita-panel__item" >\
+                    <a href="#" class="ita-panel__before">\
+                    <img class="ita-panel__before-img" src="' + item.urlBefore + '" alt="">\
+                    <p class="ita-panel__before-title">' + item.fileNameBefore + '</p>\
+                </a>\
+                <a href="#" class="ita-panel__after">\
+                    <img class="ita-panel__after-img" src="' + item.urlAfter + '" alt="">\
+                    <p class="ita-panel__after-title">' + item.fileNameAfter + '</p>\
+                </a>\
+            </li>\
+            ';
+        }
+        else{
+            html += '\
+                <li class="ita-panel__item" >\
+                    <a href="#" class="ita-panel__before">\
+                    <img class="ita-panel__before-img" src="' + item.urlBefore + '" alt="">\
+                </a>\
+                <a href="#" class="ita-panel__after">\
+                    <img class="ita-panel__after-img" src="' + item.urlAfter + '" alt="">\
+                </a>\
+            </li>\
+            ';
+        }
+
     });
 
     // ****************************************
     // Pagination
     // ****************************************
     html += '\
-        </ul >\
+        </ul>\
             </div >\
             <div class="ita-panel__footer">\
                 <ul id="ita-pagination" class="ita-pagination">\
@@ -397,7 +411,7 @@ function ItaFunc(gallery_data){
     function CreateList() {
         var new_list = '';
         
-        Paginator(list, Pagination.page, gallery_data.gallery_items_per_page).data.forEach(function (item) {
+        Paginator(list, Pagination.page, this.gallery_data.gallery_items_per_page).data.forEach(function (item) {
             new_list += '\
                 <li class="ita-panel__item" >\
                     <a href="#" class="ita-panel__elem ita-panel__before">\
@@ -413,7 +427,6 @@ function ItaFunc(gallery_data){
         });
 
         elem_list.innerHTML = new_list;
-        elem_list.scrollTop;
     }
 
     // Delete list
@@ -426,15 +439,17 @@ function ItaFunc(gallery_data){
 
     // Styler gallery
     function StylerGallery(){
-        console.log(gallery_data);
-
         var elem_panel = document.getElementsByClassName('ita-panel');
         
         // Panel width
-        elem_panel[0].style.width = gallery_data.gallery_width + 'px';
-        elem_panel[0].style.height = gallery_data.gallery_height + 'px';
-        document.getElementsByClassName('ita-panel__body')[0].style.height = (gallery_data.gallery_height - 122) + 'px';
+        elem_panel[0].style.width = this.gallery_data.gallery_width + 'px';
+        elem_panel[0].style.height = this.gallery_data.gallery_height + 'px';
+        document.getElementsByClassName('ita-panel__body')[0].style.height = (this.gallery_data.gallery_height - 122) + 'px';
     }
     
-    StylerGallery();    
+    StylerGallery();
+    
+    function ScrollTopList(){
+        document.getElementById('js-body').scrollTop = 0;
+    }
 }
