@@ -1,19 +1,30 @@
 function ItaFunc(gallery_data){
 
-    addCSS('https://ilunts.github.io/snippet-image/content/css/ita.min.css');
+    // addCSS('https://ilunts.github.io/snippet-image/content/css/ita.min.css');
 
     // Include CSS file
-    function addCSS(filename) {
-        var head = document.getElementsByTagName('head')[0];
+    // function addCSS(filename) {
+    //     var head = document.getElementsByTagName('head')[0];
 
-        var style = document.createElement('link');
-        style.href = filename;
-        style.type = 'text/css';
-        style.rel = 'stylesheet';
-        head.append(style);
-    }
+    //     var style = document.createElement('link');
+    //     style.href = filename;
+    //     style.type = 'text/css';
+    //     style.rel = 'stylesheet';
+    //     head.append(style);
+    // }
     
-    this.gallery_data = gallery_data;
+    // Init default value for gallery object
+    // this.gallery_data = gallery_data || {
+    //     gallery_width: 300,
+    //     gallery_height: 300,
+    //     gallery_items_per_page: 3,
+    //     gallery_show_item_name: false,
+    //     gallery_title: 'Gallery',
+    //     gallery_dark_mode: false,
+    // };
+
+    // console.log(this.gallery_data);
+    
 
     // Array list
     let list = [
@@ -424,6 +435,6 @@ function ItaFunc(gallery_data){
         elem_panel[0].style.height = gallery_data.gallery_height + 'px';
         document.getElementsByClassName('ita-panel__body')[0].style.height = (gallery_data.gallery_height - 122) + 'px';
     }
-
+    
     StylerGallery();    
 }
