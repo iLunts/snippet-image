@@ -1,4 +1,6 @@
-function itaFunc(gallery_data){
+function ItaFunc(gallery_data){
+
+    this.gallery_data = gallery_data;
 
     // Array list
     let list = [
@@ -86,6 +88,13 @@ function itaFunc(gallery_data){
             urlBefore: 'https://picsum.photos/300/?random',
             fileNameAfter: "Arjun",
             urlAfter: 'https://picsum.photos/300/?random',
+        },
+        {
+            id: 13,
+            fileNameBefore: "Last",
+            urlBefore: 'https://picsum.photos/300/?random',
+            fileNameAfter: "Last",
+            urlAfter: 'https://picsum.photos/300/?random',
         }
     ];
 
@@ -115,7 +124,7 @@ function itaFunc(gallery_data){
         // converting initialize data
         Extend: function (data) {
             data = data || {};
-            Pagination.size = data.size || 4;
+            Pagination.size = data.size || gallery_data.gallery_items_per_page || 4;
             Pagination.page = data.page || 1;
             Pagination.step = data.step || 3;
         },
@@ -157,6 +166,10 @@ function itaFunc(gallery_data){
                 Pagination.page = 1;
             }
             Pagination.Start();
+
+            Delete();
+            CreateList();
+
         },
 
         // next page
@@ -168,7 +181,9 @@ function itaFunc(gallery_data){
 
             Pagination.Start();
 
-            paginate(list, Pagination.page, Pagination.size);
+            Delete();
+            CreateList();
+
         },
 
 
@@ -209,6 +224,7 @@ function itaFunc(gallery_data){
                 Pagination.Last();
             }
             Pagination.Finish();
+
         },
 
 
@@ -253,7 +269,7 @@ function itaFunc(gallery_data){
 
     var init = function () {
         Pagination.Init(document.getElementById('ita-pagination'), {
-            size: 5, // pages size
+            size: Math.ceil(list.length / gallery_data.gallery_items_per_page), // pages size
             page: 1, // selected page
             step: 3 // pages before and after current
         });
@@ -268,7 +284,7 @@ function itaFunc(gallery_data){
     function Paginator(items, page, per_page) {
 
         var page = page || Pagination.page || 1,
-            per_page = per_page || gallery_data.gallery_items_per_page || Pagination.size || 5,
+            per_page = per_page || gallery_data.gallery_items_per_page || 5,
             offset = (page - 1) * per_page,
 
             paginatedItems = items.slice(offset).slice(0, per_page),
@@ -353,7 +369,7 @@ function itaFunc(gallery_data){
     // ****************************************
     // Insert HTML code
     // ****************************************
-    var elem_panel = document.getElementById("ita-1234");
+    var elem_panel = document.getElementById("ita");
     elem_panel.innerHTML = html;
 
     var elem_list = document.getElementById('js-list');
@@ -361,8 +377,8 @@ function itaFunc(gallery_data){
     // Create new list
     function CreateList() {
         var new_list = '';
-
-        Paginator(list, Pagination.page, Pagination.size).data.forEach(function (item) {
+        
+        Paginator(list, Pagination.page, gallery_data.gallery_items_per_page).data.forEach(function (item) {
             new_list += '\
                 <li class="ita-panel__item" >\
                     <a href="#" class="ita-panel__elem ita-panel__before">\
