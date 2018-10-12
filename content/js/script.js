@@ -87,6 +87,7 @@ function ItaFunc(gallery_data){
     // Init default value for gallery object
     var gallery_data;
     this.gallery_data = {
+        gallery_id: gallery_data.gallery_id || 'ita',
         gallery_width: gallery_data.gallery_width || 300,
         gallery_height: gallery_data.gallery_height || 300,
         gallery_items_per_page: gallery_data.gallery_items_per_page || 3,
@@ -200,20 +201,16 @@ function ItaFunc(gallery_data){
             Start: function () {
                 if (Pagination.size < Pagination.step * 2 + 6) {
                     Pagination.Add(1, Pagination.size + 1);
-                    debugger;
                 } else if (Pagination.page < Pagination.step * 2 + 1) {
                     Pagination.Add(1, Pagination.step * 2 + 4);
                     Pagination.Last();
-                    debugger;
                 } else if (Pagination.page > Pagination.size - Pagination.step * 2) {
                     Pagination.First();
                     Pagination.Add(Pagination.size - Pagination.step * 2 - 2, Pagination.size + 1);
-                    debugger;
                 } else {
                     Pagination.First();
                     Pagination.Add(Pagination.page - Pagination.step, Pagination.page + Pagination.step + 1);
                     Pagination.Last();
-                    debugger;
                 }
                 Pagination.Finish();
     
@@ -377,7 +374,7 @@ function ItaFunc(gallery_data){
         // ****************************************
         // Insert HTML code
         // ****************************************
-        var elem_panel = document.getElementById("ita");
+        var elem_panel = document.getElementById(this.gallery_data.gallery_id);
         elem_panel.innerHTML = html;
     
         var elem_list = document.getElementById('js-list');
