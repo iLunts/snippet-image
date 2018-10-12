@@ -71,7 +71,7 @@ function ItaFunc(gallery_data){
 
 
     // Added CSS on page
-    addCSS('https://ilunts.github.io/snippet-image/content/css/ita.min.css');
+    addCSS('http://test42.haza.by/upload/images/estate/content/css/ita.min.css');
 
     // Include CSS file
     function addCSS(filename) {
