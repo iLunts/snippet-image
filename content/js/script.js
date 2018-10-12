@@ -3,7 +3,7 @@ function ItaFunc(gallery_data){
     var htmlResponse;
     var htmlList;
     var htmlListArray;
-    var url = 'http://test42.haza.by/upload/images/estate/';
+    var url = 'http://test42.haza.by/upload/images/estate/example/';
     var arrList = [];
     var Pagination;
 

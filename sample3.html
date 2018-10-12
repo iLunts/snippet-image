@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Snippet image</title>
+
+    <link rel="stylesheet" href="content/css/main.min.css">
+    <link rel="stylesheet" href="content/css/ita.min.css">
+</head>
+
+<style>
+    .notif{
+
+    }
+</style>
+<body>
+    
+    <script src="content/js/script.js"></script>
+    <script type="text/javascript">
+        window.onload = ItaFunc({
+            gallery_id:             'ita-1', // string
+            gallery_width:          300,     // px
+            gallery_height:         450,     // px
+            gallery_items_per_page: 4,       // int
+            // gallery_show_item_name: true,    // boolean
+            gallery_title:          'Sample 3',  // string
+        });
+    </script>
+    <div id="ita-1"></div>
+
+    <div class="notif">
+        <p class="notif__title">
+            Default value for plugins:
+        </p>
+        <ul class="notif__list">
+            <li class="notif__list-item">
+                Count rows with images on page = <b>4</b>
+            </li>
+            <li class="notif__list-item">
+                Title plugin = <b>'Sample 3'</b>
+            </li>
+            <li class="notif__list-item">
+                Width panel = <b class="change">300px</b>
+            </li>
+            <li class="notif__list-item">
+                Height panel = <b class="change">450px</b>
+            </li>
+            <li class="notif__list-item">
+                Show image title = <b>false</b>
+            </li>
+        </ul>
+    </div>
+
+    <div class="links">
+        <a href="sample2.html" class="link">Example 2</a>
+        <a href="sample4.html" class="link">Example 4</a>
+    </div>
+    
+</body>
+</html>
