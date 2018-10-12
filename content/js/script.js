@@ -252,15 +252,15 @@ function ItaFunc(gallery_data){
         * Initialization
         * * * * * * * * * * * * * * * * */
     
-        var init = function () {
+        function init() {
             Pagination.Init(document.getElementById('ita-pagination'), {
                 size: Math.ceil(arrList.length / gallery_data.gallery_items_per_page), // pages size
                 page: 1, // selected page
                 step: 3 // pages before and after current
             });
-
-            debugger;
         };
+
+        init();
 
         document.addEventListener('DOMContentLoaded', init, false);
     }
@@ -379,7 +379,6 @@ function ItaFunc(gallery_data){
         var elem_list = document.getElementById('js-list');
         
         StylerGallery();
-        debugger;
         createPagination();
     }
 
@@ -387,8 +386,10 @@ function ItaFunc(gallery_data){
     // Create new list
     function CreateList() {
         var new_list = '';
+        var elem_list = document.getElementById('js-list');
+
         
-        Paginator(list, Pagination.page, this.gallery_data.gallery_items_per_page).data.forEach(function (item) {
+        Paginator(arrList, Pagination.page, this.gallery_data.gallery_items_per_page).data.forEach(function (item) {
             new_list += '\
                 <li class="ita-panel__item" >\
                     <a href="#" class="ita-panel__elem ita-panel__before">\
@@ -408,6 +409,8 @@ function ItaFunc(gallery_data){
 
     // Delete list
     function Delete() {
+        var elem_list = document.getElementById('js-list');
+
         while (elem_list.firstChild) {
             elem_list.removeChild(elem_list.firstChild);
         }
