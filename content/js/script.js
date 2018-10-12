@@ -200,16 +200,20 @@ function ItaFunc(gallery_data){
             Start: function () {
                 if (Pagination.size < Pagination.step * 2 + 6) {
                     Pagination.Add(1, Pagination.size + 1);
+                    debugger;
                 } else if (Pagination.page < Pagination.step * 2 + 1) {
                     Pagination.Add(1, Pagination.step * 2 + 4);
                     Pagination.Last();
+                    debugger;
                 } else if (Pagination.page > Pagination.size - Pagination.step * 2) {
                     Pagination.First();
                     Pagination.Add(Pagination.size - Pagination.step * 2 - 2, Pagination.size + 1);
+                    debugger;
                 } else {
                     Pagination.First();
                     Pagination.Add(Pagination.page - Pagination.step, Pagination.page + Pagination.step + 1);
                     Pagination.Last();
+                    debugger;
                 }
                 Pagination.Finish();
     
@@ -256,7 +260,7 @@ function ItaFunc(gallery_data){
             Pagination.Init(document.getElementById('ita-pagination'), {
                 size: Math.ceil(arrList.length / gallery_data.gallery_items_per_page), // pages size
                 page: 1, // selected page
-                step: 3 // pages before and after current
+                step: 1 // pages before and after current
             });
         };
 
