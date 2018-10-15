@@ -6,8 +6,17 @@ function ItaFunc(gallery_data){
     var url = 'http://test42.haza.by/upload/images/estate/example/';
     var arrList = [];
     var Pagination;
+    var gallery_data = gallery_data || {};
 
-    // var list = [];
+    // Init default value for gallery object
+    this.gallery_data = {
+        gallery_id: gallery_data.gallery_id,
+        gallery_width: gallery_data.gallery_width,
+        gallery_height: gallery_data.gallery_height,
+        gallery_items_per_page: gallery_data.gallery_items_per_page,
+        gallery_show_item_name: gallery_data.gallery_show_item_name,
+        gallery_title: gallery_data.gallery_title,
+    };
 
     // Create the XHR object.
     function createCORSRequest(method, url) {
@@ -83,17 +92,6 @@ function ItaFunc(gallery_data){
         style.rel = 'stylesheet';
         head.append(style);
     }
-    
-    // Init default value for gallery object
-    var gallery_data;
-    this.gallery_data = {
-        gallery_id: gallery_data.gallery_id || 'ita',
-        gallery_width: gallery_data.gallery_width || 300,
-        gallery_height: gallery_data.gallery_height || 300,
-        gallery_items_per_page: gallery_data.gallery_items_per_page || 3,
-        gallery_show_item_name: gallery_data.gallery_show_item_name || true,
-        gallery_title: gallery_data.gallery_title || 'Gallery',
-    };
 
     function createPagination(){
         
@@ -306,50 +304,47 @@ function ItaFunc(gallery_data){
 
     function createTemplate(){
         
-        var html = '\
-            <div class="ita-panel">\
-                <div class="ita-panel__controls">\
-                    <div class="ita-panel__controls-title">\
-                        <a href="#" class="link">' + this.gallery_data.gallery_title + ' (' + arrList.length + ')</a>\
-                    </div>\
-                </div>\
-                <div id="js-body" class="ita-panel__body">\
-                    <ul id="js-list" class="ita-panel__list">\
-            ';
-    
+        var html = `
+            <div class="ita-panel">
+                <div class="ita-panel__controls">
+                    <div class="ita-panel__controls-title">
+                        <a href="#" class="link">${this.gallery_data.gallery_title} (${arrList.length})</a>
+                    </div>
+                </div>
+                <div id="js-body" class="ita-panel__body">
+                    <ul id="js-list" class="ita-panel__list">
+            `;
+
         // ****************************************
         // List item for template
         // ****************************************
-        Paginator(arrList, 1, 5).data.forEach(function (item, i, list) {
-        // Paginator(arrList, Pagination.page, Pagination.size).data.forEach(function (item, i, list) {
-    
+        Paginator(arrList, 1, this.gallery_data.gallery_items_per_page).data.forEach(function (item, i, list) {
             if(this.gallery_data.gallery_show_item_name){
-                html += '\
-                    <li class="ita-panel__item" >\
-                        <a href="#" class="ita-panel__before">\
-                        <img class="ita-panel__before-img" src="' + item.urlBefore + '" alt="">\
-                        <p class="ita-panel__before-title">' + item.fileNameBefore + '</p>\
-                    </a>\
-                    <a href="#" class="ita-panel__after">\
-                        <img class="ita-panel__after-img" src="' + item.urlAfter + '" alt="">\
-                        <p class="ita-panel__after-title">' + item.fileNameAfter + '</p>\
-                    </a>\
-                </li>\
-                ';
+                html += `
+                    <li class="ita-panel__item" >
+                        <a href="#" class="ita-panel__before" onclick="openModal('${item.urlBefore}')">
+                            <img class="ita-panel__before-img" src="${item.urlBefore}" alt="">
+                            <p class="ita-panel__before-title">${item.fileNameBefore}</p>
+                        </a>
+                        <a href="#" class="ita-panel__after" onclick="openModal('${item.urlAfter}')">
+                            <img class="ita-panel__after-img" src="${item.urlAfter}" alt="">
+                            <p class="ita-panel__after-title">${item.fileNameAfter}</p>
+                        </a>
+                    </li>
+                `;
             }
             else{
-                html += '\
-                    <li class="ita-panel__item" >\
-                        <a href="#" class="ita-panel__before">\
-                        <img class="ita-panel__before-img" src="' + item.urlBefore + '" alt="">\
-                    </a>\
-                    <a href="#" class="ita-panel__after">\
-                        <img class="ita-panel__after-img" src="' + item.urlAfter + '" alt="">\
-                    </a>\
-                </li>\
-                ';
+                html += `
+                    <li class="ita-panel__item">
+                        <a href="#" class="ita-panel__before">
+                        <img class="ita-panel__before-img" src="${item.urlBefore}" alt="">
+                    </a>
+                    <a href="#" class="ita-panel__after">
+                        <img class="ita-panel__after-img" src="${item.urlAfter}" alt="">
+                    </a>
+                </li>
+                `;
             }
-    
         });
     
         // ****************************************
@@ -391,18 +386,18 @@ function ItaFunc(gallery_data){
 
         
         Paginator(arrList, Pagination.page, this.gallery_data.gallery_items_per_page).data.forEach(function (item) {
-            new_list += '\
-                <li class="ita-panel__item" >\
-                    <a href="#" class="ita-panel__elem ita-panel__before">\
-                        <img class="ita-panel__elem-img ita-panel__before-img" src="' + item.urlBefore + '" alt="">\
-                        <p class="ita-panel__before-title">' + item.fileNameBefore + '</p>\
-                    </a>\
-                    <a href="#" class="ita-panel__elem ita-panel__after">\
-                        <img class="ita-panel__elem-img ita-panel__after-img" src="' + item.urlAfter + '" alt="">\
-                        <p class="ita-panel__after-title">' + item.fileNameAfter + '</p>\
-                    </a>\
-                </li>\
-            ';
+            new_list += `
+                <li class="ita-panel__item">
+                    <a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal('${item.urlBefore}')">
+                        <img class="ita-panel__elem-img ita-panel__before-img" src="${item.urlBefore}" alt="">
+                        <p class="ita-panel__before-title">${item.fileNameBefore}</p>
+                    </a>
+                    <a href="#" class="ita-panel__elem ita-panel__after" onclick="openModal('${item.urlAfter}')">
+                        <img class="ita-panel__elem-img ita-panel__after-img" src="${item.urlAfter}" alt="">
+                        <p class="ita-panel__after-title">${item.fileNameAfter}</p>
+                    </a>
+                </li>
+            `;
         });
 
         elem_list.innerHTML = new_list;
@@ -431,4 +426,36 @@ function ItaFunc(gallery_data){
     function ScrollTopList(){
         document.getElementById('js-body').scrollTop = 0;
     }
+
+    // Create modal
+    function createTemplateModel(){
+        var div = document.createElement('div');
+        div.className = 'ita-modal';
+        div.setAttribute('id', 'ita-modal');
+        div.setAttribute('onclick', 'closeModal()');
+        document.body.appendChild(div);
+        
+        var img = document.createElement('img');
+        img.className = 'ita-modal-img';
+        img.setAttribute('id', 'ita-modal-img');
+        div.appendChild(img);
+    }
+
+    createTemplateModel();
+}
+
+function openModal(image_path){
+    var elem_modal = document.getElementById('ita-modal');
+    elem_modal.classList.add("open");
+    
+    var elem_img = document.getElementById('ita-modal-img');
+    elem_img.setAttribute('src', image_path);
+
+    // console.log(elem_modal);
+    // console.log(imagePath);
+}
+
+function closeModal(){
+    var elem_modal = document.getElementById('ita-modal');
+    elem_modal.classList.remove('open');
 }

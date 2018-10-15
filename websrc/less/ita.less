@@ -217,15 +217,42 @@ a {
             font-size: .9rem;
         }
     }
-
-    // & &__before:before{
-    //     content: 'Before';
-    //     color: #475c66;
-    //     left: 0;
-    // }
 }
 
 
+// ----------------------------------------------------
+// Block '.ita-modal'
+// ----------------------------------------------------
+.ita-modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    text-align: center;
+    transition: all .4s;
+    
+    &.open{
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    & &-img{
+        position: relative;
+        display: inline-block;
+        width: 80%;
+        height: 80%;
+        object-fit: cover;
+    }
+}
 
 
 
