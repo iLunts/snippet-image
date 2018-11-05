@@ -1,21 +1,18 @@
 function ItaFunc(gallery_data){
 
-    var htmlResponse;
-    var htmlList;
-    var htmlListArray;
-    var url = 'http://test42.haza.by/upload/images/estate/example/';
+    var url = 'http://gallery.ita-dev.com/gallery-server/rest/gallery/' + gallery_data.gallery_guid;
     var arrList = [];
     var Pagination;
     var gallery_data = gallery_data || {};
 
     // Init default value for gallery object
     this.gallery_data = {
-        gallery_id: gallery_data.gallery_id,
-        gallery_width: gallery_data.gallery_width,
-        gallery_height: gallery_data.gallery_height,
+        gallery_id: gallery_data.gallery_id || 'ita',
+        gallery_width: gallery_data.gallery_width || 350,
+        gallery_height: gallery_data.gallery_height || 350,
         gallery_items_per_page: gallery_data.gallery_items_per_page,
         gallery_show_item_name: gallery_data.gallery_show_item_name,
-        gallery_title: gallery_data.gallery_title,
+        gallery_title: gallery_data.gallery_title || 'Gallery',
     };
 
     // Create the XHR object.
@@ -46,24 +43,7 @@ function ItaFunc(gallery_data){
 
         // Response handlers.
         xhr.onload = function () {
-            var text = xhr.responseText;
-
-            var parser = new DOMParser();
-            var xmlDoc = parser.parseFromString(text, "text/xml");
-            htmlList = xmlDoc.getElementsByTagName("a");
-            // htmlListArray = Array.from(htmlList);
-
-            arrList = [];
-            for (var i = 1; i < htmlList.length - 1; i=i+2) {
-                arrList.push({
-                    id: i,
-                    fileNameBefore: htmlList[i].childNodes[0].nodeValue,
-                    urlBefore: url + htmlList[i].childNodes[0].nodeValue,
-                    fileNameAfter: htmlList[i+1].childNodes[0].nodeValue,
-                    urlAfter: url + htmlList[i + 1].childNodes[0].nodeValue,
-                });
-            }
-            
+            arrList = eval("(" + xhr.responseText + ")");
             createTemplate();
         };
 
@@ -71,13 +51,10 @@ function ItaFunc(gallery_data){
             alert('Woops, there was an error making the request.');
         };
 
-        // console.log(getList());
         xhr.send();
-        
     }
 
     makeCorsRequest();
-
 
     // Added CSS on page
     addCSS('http://test42.haza.by/upload/images/estate/content/css/ita.min.css');
@@ -322,13 +299,13 @@ function ItaFunc(gallery_data){
             if(this.gallery_data.gallery_show_item_name){
                 html += `
                     <li class="ita-panel__item" >
-                        <a href="#" class="ita-panel__before" onclick="openModal('${item.urlBefore}')">
-                            <img class="ita-panel__before-img" src="${item.urlBefore}" alt="">
-                            <p class="ita-panel__before-title">${item.fileNameBefore}</p>
+                        <a href="#" class="ita-panel__before" onclick="openModal('${item.imageBefore}')">
+                            <img class="ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
+                            <p class="ita-panel__before-title">${item.imageBeforeText}</p>
                         </a>
-                        <a href="#" class="ita-panel__after" onclick="openModal('${item.urlAfter}')">
-                            <img class="ita-panel__after-img" src="${item.urlAfter}" alt="">
-                            <p class="ita-panel__after-title">${item.fileNameAfter}</p>
+                        <a href="#" class="ita-panel__after" onclick="openModal('${item.imageAfter}')">
+                            <img class="ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
+                            <p class="ita-panel__after-title">${item.imageAfterText}</p>
                         </a>
                     </li>
                 `;
@@ -337,7 +314,7 @@ function ItaFunc(gallery_data){
                 html += `
                     <li class="ita-panel__item">
                         <a href="#" class="ita-panel__before">
-                        <img class="ita-panel__before-img" src="${item.urlBefore}" alt="">
+                        <img class="ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
                     </a>
                     <a href="#" class="ita-panel__after">
                         <img class="ita-panel__after-img" src="${item.urlAfter}" alt="">
@@ -450,9 +427,6 @@ function openModal(image_path){
     
     var elem_img = document.getElementById('ita-modal-img');
     elem_img.setAttribute('src', image_path);
-
-    // console.log(elem_modal);
-    // console.log(imagePath);
 }
 
 function closeModal(){
