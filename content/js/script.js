@@ -1,6 +1,7 @@
 function ItaFunc(gallery_data){
 
-    var url = 'http://gallery.ita-dev.com/gallery-server/rest/gallery/' + gallery_data.gallery_guid;
+    var url = 'http://gallery.ita-dev.com/gallery-server/rest/gallery/'
+    var urlFull = url + gallery_data.gallery_guid;
     var arrList = [];
     var Pagination;
     var gallery_data = gallery_data || {};
@@ -16,15 +17,15 @@ function ItaFunc(gallery_data){
     };
 
     // Create the XHR object.
-    function createCORSRequest(method, url) {
+    function createCORSRequest(method, urlFull) {
         var xhr = new XMLHttpRequest();
         if ("withCredentials" in xhr) {
             // XHR for Chrome/Firefox/Opera/Safari.
-            xhr.open(method, url, true);
+            xhr.open(method, urlFull, true);
         } else if (typeof XDomainRequest != "undefined") {
             // XDomainRequest for IE.
             xhr = new XDomainRequest();
-            xhr.open(method, url);
+            xhr.open(method, urlFull);
         } else {
             // CORS not supported.
             xhr = null;
@@ -35,7 +36,7 @@ function ItaFunc(gallery_data){
     // Make the actual CORS request.
     function makeCorsRequest() {
 
-        var xhr = createCORSRequest('GET', url);
+        var xhr = createCORSRequest('GET', urlFull);
         if (!xhr) {
             alert('CORS not supported');
             return;
@@ -57,7 +58,7 @@ function ItaFunc(gallery_data){
     makeCorsRequest();
 
     // Added CSS on page
-    addCSS('http://test42.haza.by/upload/images/estate/content/css/ita.min.css');
+    addCSS( url + 'content/css/ita.min.css' );
 
     // Include CSS file
     function addCSS(filename) {
@@ -317,7 +318,7 @@ function ItaFunc(gallery_data){
                         <img class="ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
                     </a>
                     <a href="#" class="ita-panel__after">
-                        <img class="ita-panel__after-img" src="${item.urlAfter}" alt="">
+                        <img class="ita-panel__after-img" src="${item.imageBefore}" alt="">
                     </a>
                 </li>
                 `;
@@ -365,13 +366,13 @@ function ItaFunc(gallery_data){
         Paginator(arrList, Pagination.page, this.gallery_data.gallery_items_per_page).data.forEach(function (item) {
             new_list += `
                 <li class="ita-panel__item">
-                    <a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal('${item.urlBefore}')">
-                        <img class="ita-panel__elem-img ita-panel__before-img" src="${item.urlBefore}" alt="">
-                        <p class="ita-panel__before-title">${item.fileNameBefore}</p>
+                    <a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal('${item.imageBefore}')">
+                        <img class="ita-panel__elem-img ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
+                        <p class="ita-panel__before-title">${item.imageBeforeText}</p>
                     </a>
-                    <a href="#" class="ita-panel__elem ita-panel__after" onclick="openModal('${item.urlAfter}')">
-                        <img class="ita-panel__elem-img ita-panel__after-img" src="${item.urlAfter}" alt="">
-                        <p class="ita-panel__after-title">${item.fileNameAfter}</p>
+                    <a href="#" class="ita-panel__elem ita-panel__after" onclick="openModal('${item.imageAfter}')">
+                        <img class="ita-panel__elem-img ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
+                        <p class="ita-panel__after-title">${item.imageAfterText}</p>
                     </a>
                 </li>
             `;
