@@ -315,12 +315,12 @@ function ItaFunc(gallery_data){
                 html += `
                     <li class="ita-panel__item">
                         <a href="#" class="ita-panel__before">
-                        <img class="ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
-                    </a>
-                    <a href="#" class="ita-panel__after">
-                        <img class="ita-panel__after-img" src="${item.imageBefore}" alt="">
-                    </a>
-                </li>
+                            <img class="ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
+                        </a>
+                        <a href="#" class="ita-panel__after">
+                            <img class="ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
+                        </a>
+                    </li>
                 `;
             }
         });
