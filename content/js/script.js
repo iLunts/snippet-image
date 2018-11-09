@@ -45,6 +45,7 @@ function ItaFunc(gallery_data){
         // Response handlers.
         xhr.onload = function () {
             arrList = eval("(" + xhr.responseText + ")");
+
             createTemplate();
         };
 
@@ -231,7 +232,7 @@ function ItaFunc(gallery_data){
     
         function init() {
             Pagination.Init(document.getElementById('ita-pagination'), {
-                size: Math.ceil(arrList.length / gallery_data.gallery_items_per_page), // pages size
+                size: Math.ceil(arrList.galleryItems.length / gallery_data.gallery_items_per_page), // pages size
                 page: 1, // selected page
                 step: 1 // pages before and after current
             });
@@ -286,7 +287,7 @@ function ItaFunc(gallery_data){
             <div class="ita-panel">
                 <div class="ita-panel__controls">
                     <div class="ita-panel__controls-title">
-                        <a href="#" class="link">${this.gallery_data.gallery_title} (${arrList.length})</a>
+                        <a href="#" class="link">${this.gallery_data.gallery_title} (${arrList.galleryItems.length})</a>
                     </div>
                 </div>
                 <div id="js-body" class="ita-panel__body">
@@ -296,7 +297,7 @@ function ItaFunc(gallery_data){
         // ****************************************
         // List item for template
         // ****************************************
-        Paginator(arrList, 1, this.gallery_data.gallery_items_per_page).data.forEach(function (item, i, list) {
+        Paginator(arrList.galleryItems, 1, this.gallery_data.gallery_items_per_page).data.forEach(function (item, i, list) {
             if(this.gallery_data.gallery_show_item_name){
                 html += `
                     <li class="ita-panel__item" >
@@ -363,7 +364,7 @@ function ItaFunc(gallery_data){
         var elem_list = document.getElementById('js-list');
 
         
-        Paginator(arrList, Pagination.page, this.gallery_data.gallery_items_per_page).data.forEach(function (item) {
+        Paginator(arrList.galleryItems, Pagination.page, this.gallery_data.gallery_items_per_page).data.forEach(function (item) {
             new_list += `
                 <li class="ita-panel__item">
                     <a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal('${item.imageBefore}')">
