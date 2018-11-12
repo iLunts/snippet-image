@@ -1,7 +1,7 @@
 function ItaFunc(gallery_data){
 
     var url = 'http://gallery.ita-dev.com/gallery-server/rest/gallery/'
-    var urlFull = url + gallery_data.gallery_guid;
+    var urlFull = url + gallery_data.gallery_uuid;
     var arrList = [];
     var Pagination;
     var gallery_data = gallery_data || {};
@@ -13,7 +13,6 @@ function ItaFunc(gallery_data){
         gallery_height: gallery_data.gallery_height || 350,
         gallery_items_per_page: gallery_data.gallery_items_per_page,
         gallery_show_item_name: gallery_data.gallery_show_item_name,
-        gallery_title: gallery_data.gallery_title || 'Gallery',
     };
 
     // Create the XHR object.
@@ -45,7 +44,6 @@ function ItaFunc(gallery_data){
         // Response handlers.
         xhr.onload = function () {
             arrList = eval("(" + xhr.responseText + ")");
-
             createTemplate();
         };
 
@@ -287,7 +285,7 @@ function ItaFunc(gallery_data){
             <div class="ita-panel">
                 <div class="ita-panel__controls">
                     <div class="ita-panel__controls-title">
-                        <a href="#" class="link">${this.gallery_data.gallery_title} (${arrList.galleryItems.length})</a>
+                        <a href="#" class="link">${arrList.galleryName} (${arrList.galleryItems.length})</a>
                     </div>
                 </div>
                 <div id="js-body" class="ita-panel__body">
@@ -297,7 +295,7 @@ function ItaFunc(gallery_data){
         // ****************************************
         // List item for template
         // ****************************************
-        Paginator(arrList.galleryItems, 1, this.gallery_data.gallery_items_per_page).data.forEach(function (item, i, list) {
+        Paginator(arrList.galleryItems, 1, this.gallery_data.gallery_items_per_page).data.forEach(function (item, i, arrList) {
             if(this.gallery_data.gallery_show_item_name){
                 html += `
                     <li class="ita-panel__item" >
@@ -315,10 +313,10 @@ function ItaFunc(gallery_data){
             else{
                 html += `
                     <li class="ita-panel__item">
-                        <a href="#" class="ita-panel__before">
+                        <a href="#" class="ita-panel__before" onclick="openModal('${item.imageBefore}')">
                             <img class="ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
                         </a>
-                        <a href="#" class="ita-panel__after">
+                        <a href="#" class="ita-panel__after" onclick="openModal('${item.imageAfter}')">
                             <img class="ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
                         </a>
                     </li>
@@ -365,18 +363,32 @@ function ItaFunc(gallery_data){
 
         
         Paginator(arrList.galleryItems, Pagination.page, this.gallery_data.gallery_items_per_page).data.forEach(function (item) {
-            new_list += `
-                <li class="ita-panel__item">
-                    <a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal('${item.imageBefore}')">
-                        <img class="ita-panel__elem-img ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
-                        <p class="ita-panel__before-title">${item.imageBeforeText}</p>
-                    </a>
-                    <a href="#" class="ita-panel__elem ita-panel__after" onclick="openModal('${item.imageAfter}')">
-                        <img class="ita-panel__elem-img ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
-                        <p class="ita-panel__after-title">${item.imageAfterText}</p>
-                    </a>
-                </li>
-            `;
+            if (this.gallery_data.gallery_show_item_name) {
+                new_list += `
+                    <li class="ita-panel__item">
+                        <a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal('${item.imageBefore}')">
+                            <img class="ita-panel__elem-img ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
+                            <p class="ita-panel__before-title">${item.imageBeforeText}</p>
+                        </a>
+                        <a href="#" class="ita-panel__elem ita-panel__after" onclick="openModal('${item.imageAfter}')">
+                            <img class="ita-panel__elem-img ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
+                            <p class="ita-panel__after-title">${item.imageAfterText}</p>
+                        </a>
+                    </li>
+                `;
+            }
+            else{
+                new_list += `
+                    <li class="ita-panel__item">
+                        <a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal('${item.imageBefore}')">
+                            <img class="ita-panel__elem-img ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
+                        </a>
+                        <a href="#" class="ita-panel__elem ita-panel__after" onclick="openModal('${item.imageAfter}')">
+                            <img class="ita-panel__elem-img ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
+                        </a>
+                    </li>
+                `;
+            }
         });
 
         elem_list.innerHTML = new_list;
