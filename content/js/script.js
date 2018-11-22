@@ -150,8 +150,6 @@ function ItaFunc(gallery_data){
                 ScrollTopList();
             },
     
-    
-    
             // --------------------
             // Script
             // --------------------
@@ -241,8 +239,6 @@ function ItaFunc(gallery_data){
         document.addEventListener('DOMContentLoaded', init, false);
     }
 
-
-
     /* * * * * * * * * * * * * * * * *
     * Start template
     * * * * * * * * * * * * * * * * */
@@ -281,68 +277,56 @@ function ItaFunc(gallery_data){
 
     function createTemplate(){
         
-        var html = `
-            <div class="ita-panel">
-                <div class="ita-panel__controls">
-                    <div class="ita-panel__controls-title">
-                        <a href="#" class="link">${arrList.galleryName} (${arrList.galleryItems.length})</a>
-                    </div>
-                </div>
-                <div id="js-body" class="ita-panel__body">
-                    <ul id="js-list" class="ita-panel__list">
-            `;
+        var html = '<div class="ita-panel">';
+        html += '<div class="ita-panel__controls">';
+        html += '<div class="ita-panel__controls-title">';
+        html += '<a href="#" class="link">' + arrList.galleryName + '(' + arrList.galleryItems.length + ')</a>';
+        html += '</div></div>';
+        html += '<div id="js-body" class="ita-panel__body">';
+        html += '<ul id="js-list" class="ita-panel__list">';
 
         // ****************************************
         // List item for template
         // ****************************************
         Paginator(arrList.galleryItems, 1, this.gallery_data.gallery_items_per_page).data.forEach(function (item, i, arrList) {
             if(this.gallery_data.gallery_show_item_name){
-                html += `
-                    <li class="ita-panel__item" >
-                        <a href="#" class="ita-panel__before" onclick="openModal('${item.imageBefore}')">
-                            <img class="ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
-                            <p class="ita-panel__before-title">${item.imageBeforeText}</p>
-                        </a>
-                        <a href="#" class="ita-panel__after" onclick="openModal('${item.imageAfter}')">
-                            <img class="ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
-                            <p class="ita-panel__after-title">${item.imageAfterText}</p>
-                        </a>
-                    </li>
-                `;
+                html += '<li class="ita-panel__item">';
+                html += '<a href="#" class="ita-panel__before" onclick="openModal(' + "'" + item.imageBefore + "'" + ')">';
+                html += '<img class="ita-panel__before-img" src="' + item.imageBeforeThumb + '" alt="">';
+                html += '<p class="ita-panel__before-title">' + item.imageBeforeText  + '</p>';
+                html += '</a>';
+                html += '<a href="#" class="ita-panel__after" onclick="openModal(' + "'" + item.imageAfter + "'" + ')">';
+                html += '<img class="ita-panel__after-img" src="' + item.imageAfterThumb + '" alt="">';
+                html += '<p class="ita-panel__after-title">' + item.imageAfterText  + '</p>';
+                html += '</a></li>';
             }
             else{
-                html += `
-                    <li class="ita-panel__item">
-                        <a href="#" class="ita-panel__before" onclick="openModal('${item.imageBefore}')">
-                            <img class="ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
-                        </a>
-                        <a href="#" class="ita-panel__after" onclick="openModal('${item.imageAfter}')">
-                            <img class="ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
-                        </a>
-                    </li>
-                `;
+
+                html += '<li class="ita-panel__item">';
+                html += '<a href="#" class="ita-panel__before" onclick="openModal(' + "'" + item.imageBefore + "'" + ')">';
+                html += '<img class="ita-panel__before-img" src="' + item.imageBeforeThumb + '" alt="">';
+                html += '</a>';
+                html += '<a href="#" class="ita-panel__after" onclick="openModal(' + "'" + item.imageAfter + "'" + ')">';
+                html += '<img class="ita-panel__after-img" src="' + item.imageAfterThumb + '" alt="">';
+                html += '</a>';
+                html += '</li>';
+
             }
         });
     
         // ****************************************
         // Pagination
         // ****************************************
-        html += '\
-            </ul>\
-                </div >\
-                <div class="ita-panel__footer">\
-                    <ul id="ita-pagination" class="ita-pagination">\
-                    </ul>\
-                </div>\
-            ';
-    
+        html += '</ul></div>';
+        html += '<div class="ita-panel__footer">';
+        html += '<ul id="ita-pagination" class="ita-pagination">';
+        html += '</ul></div>';
+
         // ****************************************
         // End template
         // ****************************************
-        html += '\
-                </div >\
-            ';
-    
+        html +='</div>';
+        
         // ****************************************
         // Insert HTML code
         // ****************************************
@@ -364,30 +348,26 @@ function ItaFunc(gallery_data){
         
         Paginator(arrList.galleryItems, Pagination.page, this.gallery_data.gallery_items_per_page).data.forEach(function (item) {
             if (this.gallery_data.gallery_show_item_name) {
-                new_list += `
-                    <li class="ita-panel__item">
-                        <a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal('${item.imageBefore}')">
-                            <img class="ita-panel__elem-img ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
-                            <p class="ita-panel__before-title">${item.imageBeforeText}</p>
-                        </a>
-                        <a href="#" class="ita-panel__elem ita-panel__after" onclick="openModal('${item.imageAfter}')">
-                            <img class="ita-panel__elem-img ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
-                            <p class="ita-panel__after-title">${item.imageAfterText}</p>
-                        </a>
-                    </li>
-                `;
+                new_list += '<li class="ita-panel__item">';
+                new_list += '<a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal(' + "'" + item.imageBefore + "'" + ')">';
+                new_list += '<img class="ita-panel__elem-img ita-panel__before-img" src="' + item.imageBeforeThumb + '" alt="">';
+                new_list += '<p class="ita-panel__before-title">' + item.imageBeforeText + '</p>';
+                new_list += '</a>';
+                new_list += '<a href="#" class="ita-panel__elem ita-panel__after" onclick="openModal(' + "'" + item.imageAfter + "'" + ')">';
+                new_list += '<img class="ita-panel__elem-img ita-panel__after-img" src="' + item.imageAfterThumb + '" alt="">';
+                new_list += '<p class="ita-panel__after-title">' + item.imageAfterText + '</p>';
+                new_list += '</a>';
+                new_list += '</li>';
             }
             else{
-                new_list += `
-                    <li class="ita-panel__item">
-                        <a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal('${item.imageBefore}')">
-                            <img class="ita-panel__elem-img ita-panel__before-img" src="${item.imageBeforeThumb}" alt="">
-                        </a>
-                        <a href="#" class="ita-panel__elem ita-panel__after" onclick="openModal('${item.imageAfter}')">
-                            <img class="ita-panel__elem-img ita-panel__after-img" src="${item.imageAfterThumb}" alt="">
-                        </a>
-                    </li>
-                `;
+                new_list += '<li class="ita-panel__item">';
+                new_list += '<a href="#" class="ita-panel__elem ita-panel__before" onclick="openModal(' + "'" + item.imageBefore + "'" + ')">';
+                new_list += '<img class="ita-panel__elem-img ita-panel__before-img" src="' + item.imageBeforeThumb + '" alt="">';
+                new_list += '</a>';
+                new_list += '<a href="#" class="ita-panel__elem ita-panel__after" onclick="openModal(' + "'" + item.imageAfter + "'" + ')">';
+                new_list += '<img class="ita-panel__elem-img ita-panel__after-img" src="' + item.imageAfterThumb + '" alt="">';
+                new_list += '</a>';
+                new_list += '</li>';
             }
         });
 
@@ -429,7 +409,7 @@ function ItaFunc(gallery_data){
         var img = document.createElement('img');
         img.className = 'ita-modal-img';
         img.setAttribute('id', 'ita-modal-img');
-        div.appendChild(img);
+        div.appendChild(img);   
     }
 
     createTemplateModel();
